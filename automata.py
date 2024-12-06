@@ -2,6 +2,7 @@ import os
 import csv
 from tkinter import messagebox, filedialog
 from transitions import transitions
+from datetime import datetime  # Para manejar fechas y horas
 
 
 class Automata:
@@ -31,7 +32,17 @@ def parse_filename(filename_no_ext):
 
 
 def generate_csv(data):
-    save_path = filedialog.asksaveasfilename(defaultextension=".csv", filetypes=[("CSV files", "*.csv")])
+    # Obtener la fecha y hora actuales
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    default_filename = f"resultado_{timestamp}.csv"
+
+    # Solicitar al usuario dónde guardar el archivo con un nombre predeterminado
+    save_path = filedialog.asksaveasfilename(
+        initialfile=default_filename,
+        defaultextension=".csv",
+        filetypes=[("CSV files", "*.csv")]
+    )
+    
     if not save_path:
         messagebox.showwarning("Guardado cancelado", "No se guardó el archivo CSV.")
         return
@@ -45,7 +56,16 @@ def generate_csv(data):
 
 
 def generate_text_file(data):
-    save_path = filedialog.asksaveasfilename(defaultextension=".txt", filetypes=[("Text files", "*.txt")])
+    # Similar lógica para el nombre único del archivo de texto
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    default_filename = f"rechazados_{timestamp}.txt"
+
+    save_path = filedialog.asksaveasfilename(
+        initialfile=default_filename,
+        defaultextension=".txt",
+        filetypes=[("Text files", "*.txt")]
+    )
+    
     if not save_path:
         messagebox.showwarning("Guardado cancelado", "No se guardó el archivo de texto.")
         return
