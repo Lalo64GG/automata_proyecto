@@ -8,20 +8,27 @@ from datetime import datetime  # Para manejar fechas y horas
 class Automata:
     def __init__(self):
         self.state = 'q0'
-        self.final_states = ['q86']
-        self.transitions = transitions
+        self.final_states = ['q33']
+        self.transitions = transitions  
 
     def transition(self, symbol):
         key = (self.state, symbol)
+        print(f"Current State: {self.state}, Symbol: '{symbol}'")
         if key in self.transitions:
             self.state = self.transitions[key]
-            self.error_message = None  # Reiniciamos el mensaje de error en caso de éxito
+            print(f"Transitioning to: {self.state}")
+            self.error_message = None
         else:
             self.error_message = f"No hay transición definida desde el estado '{self.state}' con el símbolo '{symbol}'."
             self.state = ''  # Estado de rechazo
+            print(f"Rechazado: {self.error_message}")
 
     def is_accepting(self):
         return self.state in self.final_states
+
+    def reset(self):
+        self.state = 'q0'
+        self.error_message = None
 
 
 def parse_filename(filename_no_ext):
